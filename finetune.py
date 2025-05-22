@@ -4,8 +4,6 @@
 # In[1]:
 
 
-
-
 import numpy as np
 import pandas as pd
 import argparse
@@ -544,7 +542,7 @@ def plot_forecast_grid(building_forecast_data, save_path, filename='forecast_gri
 def test(args, model, criterion, device):
 
     folder_path = args['test_dataset_path']
-    result_path = args['result_path']
+    result_path = args['result_path_finetune']
     backcast_length = args['backcast_length']
     forecast_length = args['forecast_length']
     stride = args['stride']
