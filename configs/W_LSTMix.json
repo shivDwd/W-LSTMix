@@ -23,6 +23,7 @@
     "patience": 10,
     "pretrained_model_path": "./checkpoints/W_LSTMix",
     "finetuned_model_save_path": "./checkpoints/W_LSTMix_finetune",
+    "result_path_finetune": "./results/zero_shot/W_LSTMix_finetune",
 
     "loss": "huber",
     "learning_rate": 0.0001,
