@@ -266,24 +266,3 @@ if __name__ == '__main__':
 
 
 
-####Plotting
-# In[ ]:
-import matplotlib.pyplot as plt
-
-def plot_forecast(y_true, y_pred, save_path, building_id, num_samples=5):
-    plt.figure(figsize=(10, 5))
-    for i in range(min(num_samples, len(y_true))):
-        plt.plot(y_true[i], label='Ground Truth', color='blue')
-        plt.plot(y_pred[i], label='Forecast', color='red', linestyle='--')
-        plt.title(f"Forecast vs Ground Truth for {building_id} - Sample {i}")
-        plt.legend()
-        plt.tight_layout()
-        plt.savefig(os.path.join(save_path, f"{building_id}_sample_{i}.png"))
-        plt.clf()
-
-plot_forecast(
-    y_true_combine_unscaled.reshape(-1, forecast_length),
-    y_pred_combine_unscaled.reshape(-1, forecast_length),
-    results_path,
-    building_id
-)
