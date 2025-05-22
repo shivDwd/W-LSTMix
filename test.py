@@ -19,7 +19,7 @@ sys.path.append('./model')
 
 import torch
 from torch.utils.data import Dataset, DataLoader
-from models import GridFlow_lstm_mlp as GridFlow
+from models import W_LSTMix
 from torch.utils.data import ConcatDataset
 
 from tqdm import tqdm
@@ -226,15 +226,15 @@ if __name__ == '__main__':
     # hidden_dim = args['hidden_dim']
     # num_patches = backcast_length // patch_size
 
-    config_file = "./configs/gridflow_lstm_mlp.json"
+    config_file = "./configs/W_LSTMix.json"
     with open(config_file, 'r') as f:
         args = json.load(f)
 
     # check device 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    # Define GridFlow model
-    model = GridFlow.Model(
+    # Define W_LSTMix model
+    model = W_LSTMix.Model(
         device=device,
         num_blocks_per_stack=args['num_blocks_per_stack'],
         forecast_length=args['forecast_length'],
