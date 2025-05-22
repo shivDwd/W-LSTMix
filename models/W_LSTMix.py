@@ -1,10 +1,12 @@
-####### Trend and seasonality decompostion using a hybrid model of LSTM and mlp-mixer
+####### Trend and seasonality decompostion using Wavelet and forecasting using a hybrid model of LSTM and mlp-mixer
 
 
 import torch
 from torch import nn
 from torch.nn import functional as F
 import math
+
+
 
 class MLPMixer(nn.Module):
     def __init__(self, patch_size, num_patches, patch_hidden_dim, time_hidden_dim):
@@ -127,6 +129,7 @@ class Model(nn.Module):
             num_heads=2,
             ff_hidden_dim=256,
             context_length= 168,
+            dropout= 0.1,
             share_weights_in_stack=False,
             positional_embed_flag=True
     ):
@@ -149,8 +152,10 @@ class Model(nn.Module):
         self.log_sigma_trend = nn.Parameter(torch.tensor(0.0))
         self.log_sigma_season = nn.Parameter(torch.tensor(0.0))
 
+        ########Embeddings####
         self.proj_linear_trend = nn.Linear(context_length, backcast_length)
         self.proj_linear_season = nn.Linear(context_length, backcast_length)
+        self.dropout = nn.Dropout(p=dropout)
 
         # Trend stack (RNN(Type-LSTM)-based)
       
@@ -187,8 +192,9 @@ class Model(nn.Module):
         """
         trend_forecast = torch.zeros(trend_input.size(0), self.forecast_length).to(self.device)
         seasonality_forecast = torch.zeros(seasonality_input.size(0), self.forecast_length).to(self.device)
-        trend_input = self.proj_linear_trend(trend_input)
-        seasonality_input = self.proj_linear_season(seasonality_input)
+
+        trend_input = self.dropout(self.proj_linear_trend(trend_input))
+        seasonality_input = self.dropout(self.proj_linear_season(seasonality_input))
 
         # Trend path (Transformer-based)
         for block in self.trend_stack:
