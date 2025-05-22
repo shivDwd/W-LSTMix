@@ -4,10 +4,6 @@
 # In[1]:
 
 
-pwd
-
-
-# In[2]:
 
 
 import numpy as np
