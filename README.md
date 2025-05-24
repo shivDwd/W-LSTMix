@@ -1,61 +1,82 @@
+
 # W-LSTMix
 
-**W-LSTMix** is a lightweight, modular hybrid forecasting model designed for efficient and generalizable building-level load forecasting across diverse building types. With just ~0.13M parameters, W-LSTMix combines:
+**W-LSTMix** is a lightweight, modular hybrid forecasting model designed for building-level load forecasting across diverse building types. With approximately **0.13 million parameters**, W-LSTMix combines:
+
+- **Wavelet-based signal decomposition**
+- **N-BEATS** for ensemble forecasting
+- **LSTM** for gated memory
+- **MLP-Mixer** for efficient patch-wise mixing
+
+This model achieves high forecasting accuracy with a minimal computational footprint.
 
 ---
 
 ## 🚀 Features
 
-- Compact architecture (~0.13M parameters)
-- Effective for zero-shot building-level energy load forecasting
-- Modular components allow easy customization
-- Lightweight and fast for real-world deployment
+- Lightweight: ~0.13M parameters
+- Modular design for flexible adaptation
+- Effective generalization across building types
+- Zero-shot capabilities
+- Colab-ready demo
 
 ---
 
 ## 🛠 Installation
 
-> It's recommended to use a separate virtual environment.
+> ⚠️ It is recommended to use a separate virtual environment.
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/shivDwd/W-LSTMix.git
+   cd W-LSTMix
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Download the test dataset:**
+   ```bash
+   git clone https://huggingface.co/datasets/shivDwd/W_LSTMix_test_dataset
+   ```
+
+---
+
+## 🧪 Running Tests
+
+1. Change your working directory to the repo folder (if not already in it):
+   ```bash
+   cd W-LSTMix
+   ```
+
+2. Run the test script:
+   ```bash
+   python test.py
+   ```
+
+---
+
+## 🗂 Notes
+
+- ✅ Checkpoints for **zero-shot experiments** are provided in this repository.
+- ⚙️ You can modify the configuration by editing the `config` file accordingly.
+
+---
+
+## 📓 Colab Quickstart
+
+Use the following steps to try W-LSTMix on [Google Colab](https://colab.research.google.com):
 
 ```bash
-# Clone the repository
-git clone https://github.com/shivDwd/W-LSTMix.git
-
-# Navigate to the project directory
-cd W-LSTMix
-
-# Install the dependencies
-pip install -r requirements.txt
-
----
-
-## 📥 Download the Test Dataset
-
-git clone https://huggingface.co/datasets/shivDwd/W_LSTMix_test_dataset
-
----
-
-##  ✅ Run Testing
-
-python test.py
-
----
-
-## 💻 Google Colab: Quick Demo
-
-```bash
-# Clone the model repository
 !git clone https://github.com/shivDwd/W-LSTMix.git
-cd W-LSTMix
-
-# Clone the test dataset from Hugging Face
+%cd W-LSTMix
 !git clone https://huggingface.co/datasets/shivDwd/W_LSTMix_test_dataset
-
-# Install dependencies
 !pip install -r requirements.txt
-
-# Run the test script
 !python test.py
+```
 
+---
 
 
