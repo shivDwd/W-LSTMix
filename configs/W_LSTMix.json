@@ -13,7 +13,7 @@
     "context_length": 168,
 
     "train_dataset_path": "./dataset/train",
-    "test_dataset_path": "./W_LSTMix_test_dataset",
+    "test_dataset_path": "./W_LSTMix_test_dataset/test",
     "val_dataset_path": "./dataset/val",
 
     "num_epochs": 100,
