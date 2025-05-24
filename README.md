@@ -68,7 +68,7 @@ This model achieves high forecasting accuracy with a minimal computational footp
 
 ## 📓 Colab Quickstart
 
-Use the following steps to try W-LSTMix on [Google Colab](https://colab.research.google.com):
+Use the following steps to try W-LSTMix on [Google Colab]:
 
 ```bash
 !git clone https://github.com/shivDwd/W-LSTMix.git
