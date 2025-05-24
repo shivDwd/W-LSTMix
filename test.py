@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -19,7 +20,7 @@ sys.path.append('./model')
 
 import torch
 from torch.utils.data import Dataset, DataLoader
-from models import W_LSTMix
+from models import W_LSTMix 
 from torch.utils.data import ConcatDataset
 
 from tqdm import tqdm
@@ -33,13 +34,14 @@ from my_utils.decompose_normalize import standardize_series, unscale_predictions
 
 
 class DecomposedTimeSeriesDataset(Dataset):
-    def __init__(self, series, backcast_length, forecast_length, stride=1, period=24):
+    def __init__(self, series, backcast_length, forecast_length, method_decom, stride=1, period=24):
         self.backcast_length = backcast_length
         self.forecast_length = forecast_length
         self.stride = stride
+        self.method_decom = method_decom
 
         # Decompose the series into trend and seasonality+residual
-        trend, seasonality = decompose_series(series, period=period)
+        trend, seasonality = decompose_series(series, method_decom, period=period)
 
         # Standardize each component
         self.trend, self.trend_mean, self.trend_std = standardize_series(trend)
@@ -78,6 +80,7 @@ def test(args, model, criterion, device):
     forecast_length = args['forecast_length']
     stride = args['stride']
     period = 24
+    method_decom = args['method_decom']
 
 
     median_res = []  
@@ -103,7 +106,7 @@ def test(args, model, criterion, device):
                     building_id = building.rsplit(".parquet",1)[0]
                     df = pd.read_parquet(file_path)
                 energy_data = df['energy'].values
-                dataset = DecomposedTimeSeriesDataset(energy_data, backcast_length, forecast_length, stride, period)
+                dataset = DecomposedTimeSeriesDataset(energy_data, backcast_length, forecast_length, method_decom, stride, period)
                 
                 # test phase
                 model.eval()
@@ -114,7 +117,7 @@ def test(args, model, criterion, device):
                 y_pred_seasonal = []
 
                 # test loop
-                for batch in tqdm(DataLoader(dataset, batch_size=1), desc=f"Testing {building_id}", leave=False):
+                for batch in tqdm(DataLoader(dataset, batch_size=1, num_workers=4), desc=f"Testing {building_id}", leave=False):
                     trend_input = batch['trend_input'].to(device)
                     season_input = batch['season_input'].to(device)
                     trend_target = batch['trend_target'].to(device)
@@ -190,41 +193,6 @@ def test(args, model, criterion, device):
 
 if __name__ == '__main__':
 
-    # parser = argparse.ArgumentParser(description='Time Series Forecasting')
-    # parser.add_argument('--config-file', type=str, default='./configs/energy_data.json', help='Input config file path', required=True)
-    # parser.add_argument('--seq_len', type=int, default=168, help='Input Sequence Length')
-    # parser.add_argument('--stride', type=int, default=24, help='Input Stride')
-    # parser.add_argument('--patch_size', type=int, default=24, help='Input Patch Length')
-    # parser.add_argument('--hidden_dim', type=int, default=256, help='Input Hidden Dim')
-    # parser.add_argument('--model_save_path', type=str, default='./checkpoints/MixBEATS', help='Enter model save path')
-    # parser.add_argument('--result_path', type=str, default='./results/MixBEATS', help="Enter the results path")
-
-    
-    # # Parse known args
-    # cli_args = parser.parse_args()
-
-    # # Load config file
-    # with open(cli_args.config_file, 'r') as f:
-    #     args = json.load(f)
-
-
-    # args['model_save_path'] = cli_args.model_save_path
-    # args['seq_len'] = cli_args.seq_len
-    # args['stride'] = cli_args.stride 
-    # args['hidden_dim'] = cli_args.hidden_dim
-    # args['patch_size'] = cli_args.patch_size
-    # args['result_path'] = cli_args.result_path
-
-
-    
-    # # # Parameters
-    # backcast_length = args['seq_len']
-    # forecast_length = args['pred_len']
-    # stride = args['stride']
-    # batch_size = args['batch_size']
-    # patch_size = args['patch_size']
-    # hidden_dim = args['hidden_dim']
-    # num_patches = backcast_length // patch_size
 
     config_file = "./configs/W_LSTMix.json"
     with open(config_file, 'r') as f:
@@ -262,6 +230,8 @@ if __name__ == '__main__':
 
     # training the model and save best parameters
     test(args, model, criterion, device)
+
+
 
 
 
