@@ -1,6 +1,6 @@
 
 
-# W-LSTMix
+# W-LSTMix: A Hybrid Modular Forecasting Framework for Trend and Pattern Learning in Short-Term Load Forecasting
 
 **W-LSTMix** is a lightweight, modular hybrid forecasting model designed for building-level load forecasting across diverse building types. With approximately **0.13 million parameters**, W-LSTMix combines:
 
