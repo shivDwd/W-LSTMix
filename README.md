@@ -13,6 +13,19 @@ This model achieves high forecasting accuracy with a minimal computational footp
 
 ---
 
+## 📰 News
+
+📢 **Our paper on W-LSTMix has been accepted at [ICML Workshop FMSD 2025](https://icml-structured-fm-workshop.github.io/)!**  
+Check out the publication below:
+
+> **W-LSTMix: A Hybrid Modular Forecasting Framework for Trend and Pattern Learning in Short-Term Load Forecasting**  
+> *Shivam Dwivedi, Anuj Kumar, Harish Kumar Saravanan, Pandarasamy Arjunan*  
+> In *Proceedings of the 1st ICML Workshop on Foundation Models for Structured Data, Vancouver, Canada. 2025*  
+> [https://openreview.net/pdf?id=bG04Z3Jioc](https://openreview.net/pdf?id=bG04Z3Jioc)
+
+
+---
+
 ## 🚀 Features
 
 - Lightweight: ~0.13M parameters
