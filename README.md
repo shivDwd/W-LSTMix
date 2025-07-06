@@ -139,7 +139,7 @@ url={https://openreview.net/forum?id=bG04Z3Jioc}
 ---
 ## 📬 Contact
 
-For any queries, please contact Pandarasamy Arjunan (samy@iisc.ac.in) or raise an issue in the repository.
+For any queries, please contact Shivam DWivedi (dshivam@iisc.ac.in) or raise an issue in the repository.
 
 ---
 
