@@ -63,8 +63,8 @@ This project uses large-scale **real-world building energy datasets** from comme
 ## 📈 Comparative Evaluation
 
 We benchmark **W-LSTMix** against state-of-the-art Time Series Foundation Models (TSFMs) and N-BEATS under two broad settings: zero-shot and fine-tuning. Please refer to the publication for a detailed summary of the results.
----
 
+---
 ## 🛠 Installation
 
 > ⚠️ It is recommended to use a separate virtual environment.
